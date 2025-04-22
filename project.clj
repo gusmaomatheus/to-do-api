@@ -5,6 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [ring/ring-core "1.14.1"]
+                 [ring/ring-jetty-adapter "1.14.1"]
                  [metosin/reitit "0.8.0"]
                  [metosin/muuntaja "0.6.11"]
                  [camel-snake-kebab "0.4.3"]
