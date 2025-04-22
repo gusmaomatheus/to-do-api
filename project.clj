@@ -9,7 +9,8 @@
                  [metosin/muuntaja "0.6.11"]
                  [camel-snake-kebab "0.4.3"]
                  [com.github.seancorfield/next.jdbc "1.3.1002"]
-                 [org.postgresql/postgresql "42.7.4"]]
+                 [org.postgresql/postgresql "42.7.4"]
+                 [com.taoensso/timbre "6.7.0"]]
   :main ^:skip-aot to-do-api.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
