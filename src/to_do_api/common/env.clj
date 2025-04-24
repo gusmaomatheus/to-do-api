@@ -1,4 +1,3 @@
 (ns to-do-api.common.env)
 
-(defn api-port []
-  (Integer/parseInt (or (System/getenv "API_PORT") "3000")))
+(defn server-port [] (Integer/parseInt (or (System/getenv "SERVER_PORT") "3000")))

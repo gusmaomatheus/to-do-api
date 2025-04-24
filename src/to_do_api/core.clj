@@ -10,6 +10,6 @@
     [["/ping" {:get (fn [_] {:status 200 :body "pong"})}]])))
 
 (defn -main []
-  (let [port (env/api-port)]
+  (let [port (env/server-port)]
     (println (str "🔧 Iniciando servidor na porta " port))
     (run-jetty app {:port port})))
