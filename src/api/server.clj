@@ -1,15 +1,35 @@
 (ns api.server
   (:require
+   [api.env :as env]
+   [api.handler.task :as task]
+   [api.middleware :as middleware]
+   [camel-snake-kebab.core :as csk]
+   [muuntaja.core :as m]
    [reitit.ring :as ring]
-   [ring.adapter.jetty :refer [run-jetty]]
-   [to-do-api.common.env :as env]))
+   [reitit.ring.middleware.muuntaja :as muuntaja]
+   [ring.adapter.jetty :as jetty]
+   [taoensso.timbre :as log]))
 
-(def app
+;; muuntaja default configs
+
+(def ^:private muuntaja-instance
+  (m/create
+   (-> m/default-options
+       (assoc-in [:formats "application/json" :encoder-opts] {:encode-key-fn csk/->camelCaseString})
+       (assoc-in [:formats "application/json" :decoder-opts] {:decode-key-fn csk/->kebab-case-keyword}))))
+
+(def ^:private app
   (ring/ring-handler
    (ring/router
-    [["/ping" {:get (fn [_] {:status 200 :body "pong"})}]])))
+    [["/api/task" {:post task/insert-task}]]
+    {:data {:muuntaja muuntaja-instance
+            :middleware [middleware/wrap-exception
+                         muuntaja/format-middleware]}})))
+
+(defn- start [port]
+  (let [server (jetty/run-jetty #'app {:port port :join? false :async? false :send-server-version? false})]
+    (log/infof "🟢 Server running at port %d" port)
+    server))
 
 (defn -main []
-  (let [port (env/server-port)]
-    (println (str "🔧 Iniciando servidor na porta " port))
-    (run-jetty app {:port port})))
+  (start (env/server-port)))
