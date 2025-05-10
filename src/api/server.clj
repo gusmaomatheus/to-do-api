@@ -2,11 +2,11 @@
   (:require
    [api.env :as env]
    [api.handler.task :as task]
-   [api.middleware :as middleware]
+   [api.middleware :as custom-mw]
    [camel-snake-kebab.core :as csk]
    [muuntaja.core :as m]
    [reitit.ring :as ring]
-   [reitit.ring.middleware.muuntaja :as muuntaja]
+   [reitit.ring.middleware.muuntaja :as mw]
    [ring.adapter.jetty :as jetty]
    [taoensso.timbre :as log]))
 
@@ -23,8 +23,8 @@
    (ring/router
     [["/api/task" {:post task/insert-task}]]
     {:data {:muuntaja muuntaja-instance
-            :middleware [middleware/wrap-exception
-                         muuntaja/format-middleware]}})))
+            :middleware [custom-mw/wrap-exception
+                         mw/format-middleware]}})))
 
 (defn- start [port]
   (let [server (jetty/run-jetty #'app {:port port :join? false :async? false :send-server-version? false})]
