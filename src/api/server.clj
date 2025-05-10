@@ -24,7 +24,6 @@
     [["/api/task" {:post task/insert-task}]]
     {:data {:muuntaja muuntaja-instance
             :middleware [middleware/wrap-exception
-                         middleware/wrap-response
                          muuntaja/format-middleware]}})))
 
 (defn- start [port]
