@@ -1,7 +1,7 @@
-(ns to-do-api.common.util-test
+(ns api.util-test
   (:require
-   [clojure.test :refer [deftest is testing]]
-   [to-do-api.common.util :as util]))
+   [api.util :as util]
+   [clojure.test :refer [deftest is testing]]))
 
 ;; symbols
 
