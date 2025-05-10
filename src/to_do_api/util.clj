@@ -1,4 +1,4 @@
-(ns to-do-api.common.util
+(ns to-do-api.util
   (:require
    [camel-snake-kebab.core :as csk]
    [muuntaja.core :as m]
