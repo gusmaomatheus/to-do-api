@@ -1,4 +1,4 @@
-(ns to-do-api.server
+(ns api.server
   (:require
    [reitit.ring :as ring]
    [ring.adapter.jetty :refer [run-jetty]]
