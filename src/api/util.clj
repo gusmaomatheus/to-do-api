@@ -2,13 +2,15 @@
   (:require
    [camel-snake-kebab.core :as csk]
    [muuntaja.core :as m]
-   [taoensso.timbre :as log]))
+   [taoensso.timbre :as log])
+  (:import
+   [java.time LocalDate]))
 
 ;; symbols
 
 ;; muuntaja default configs
 
-(def ^:private muuntaja-instance
+(def muuntaja-instance
   (m/create
    (-> m/default-options
        (assoc-in [:formats "application/json" :encoder-opts] {:encode-key-fn csk/->camelCaseString})
@@ -33,3 +35,8 @@
     (catch Exception e
       (log/error (.getMessage e))
       {})))
+
+;; Date and Time
+
+(defn ->timestamp []
+  (LocalDate/now))
