@@ -14,3 +14,10 @@
           (catch Exception exception
             (handlers/http-500 exception (.getMessage exception)))))
       (handlers/http-400 "Invalid fields."))))
+
+(defn get-tasks [_request]
+  (try
+    (let [tasks (qry/get-tasks)]
+      (handlers/http-200 tasks))
+    (catch Exception exception
+      (handlers/http-500 exception (.getMessage exception)))))

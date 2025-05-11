@@ -21,7 +21,8 @@
 (def ^:private app
   (ring/ring-handler
    (ring/router
-    [["/api/task" {:post task/insert-task}]]
+    [["/api/task" {:post task/insert-task
+                   :get task/get-tasks}]]
     {:data {:muuntaja muuntaja-instance
             :middleware [custom-mw/wrap-exception
                          mw/format-middleware]}})))
