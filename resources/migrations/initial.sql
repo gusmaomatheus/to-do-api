@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS tasks (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(50) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  priority TEXT DEFAULT "low"
+);
